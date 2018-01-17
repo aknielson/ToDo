@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,15 +20,15 @@ namespace ToDo.WebApi.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<Models.ToDo> Get()
+         public async Task<IActionResult> Get()
         {
-            var woot = _context.ToDos.ToList();
-            return woot;
+            var toDoList = _context.ToDos.ToList();
+            return Ok(toDoList);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var toDo = _context.ToDos.FirstOrDefault(x => x.Id == id);
             if (toDo != null)
@@ -40,7 +39,7 @@ namespace ToDo.WebApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody]Models.ToDo value)
+        public async Task<IActionResult> Post([FromBody]Models.ToDo value)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +58,7 @@ namespace ToDo.WebApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]Models.ToDo value)
+        public async Task<IActionResult> Put(int id, [FromBody]Models.ToDo value)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +81,7 @@ namespace ToDo.WebApi.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var toDo = _context.ToDos.FirstOrDefault(x => x.Id == id);
             if (toDo == null)             
